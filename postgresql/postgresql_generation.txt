@@ -1,0 +1,26 @@
+можно установить некое расширение faker
+
+
+SELECT 
+    gen_random_uuid(),  -- случайный уникальный идентификатор
+    generate_series, -- подряд идущие числа из FROM
+    date '2000-01-01' + (RANDOM() * 3653)::INT, -- даты в течение 10 лет
+    ROUND(RANDOM()::DECIMAL * (5000 - 1000)  + 1000, 0), -- случайные числа от 1000 до 5000 
+    FLOOR(RANDOM() * 100)::int,  -- случайное целое число от 0 до 99
+    CASE WHEN RANDOM() < 0.7 THEN 'A' ELSE 'B' END,
+    LEFT(MD5(RANDOM()::text), 4) || '@gmail.com' -- случайный текст генерим (16-ричный хеш это) и берем первые 4 знака
+FROM 
+    generate_series(1, 10)
+
+
+
+-- Генерация фамилий-имен из списка фамилий и списка имен кроссджойном
+SELECT 
+    first_name, 
+    last_name
+FROM 
+    (SELECT UNNEST(ARRAY['Иван', 'Петр','Сидор']) AS first_name) t2
+    CROSS JOIN 
+    (SELECT UNNEST(ARRAY['Иванов', 'Петров','Сидоров']) AS last_name) t1
+ORDER BY 
+    RANDOM()
