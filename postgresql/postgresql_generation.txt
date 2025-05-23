@@ -1,6 +1,19 @@
 можно установить некое расширение faker
 
+-- моя БД
+SELECT 
+    date '2000-01-01' + (RANDOM() * (365*5 + 2))::INT AS date, -- даты в течение 5 лет с 2 високосными
+	FLOOR(RANDOM() * 99999)::int + 1 AS user_id,  -- 99999 пользователей
+	MD5(RANDOM()::text) AS user_name,  -- случайное имя пользователя
+    FLOOR(RANDOM() * 9)::int + 1 AS product_id,  -- 9 продуктов
+	MD5(RANDOM()::text) AS product_name,  -- случайное название продукта
+	ROUND(RANDOM()::DECIMAL * (2000 - 1000)  + 1000, 0) AS price, -- случайные числа от 1000 до 2000 
+	ROUND(RANDOM()::DECIMAL * (1000 - 500)  + 500, 0) AS cost -- случайные числа от 1000 до 2000 
+FROM 
+    generate_series(1, 10)
 
+
+-- примеры генераций
 SELECT 
     gen_random_uuid(),  -- случайный уникальный идентификатор
     generate_series, -- подряд идущие числа из FROM
@@ -24,3 +37,6 @@ FROM
     (SELECT UNNEST(ARRAY['Иванов', 'Петров','Сидоров']) AS last_name) t1
 ORDER BY 
     RANDOM()
+
+
+
