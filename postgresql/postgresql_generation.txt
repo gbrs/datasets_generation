@@ -1,6 +1,7 @@
 можно установить некое расширение faker
 
--- моя БД
+-- генерация моей БД
+INSERT INTO generated_sales.sales
 SELECT 
     date '2000-01-01' + (RANDOM() * (365*5 + 2))::INT AS date, -- даты в течение 5 лет с 2 високосными
 	FLOOR(RANDOM() * 99999)::int + 1 AS user_id,  -- 99999 пользователей
