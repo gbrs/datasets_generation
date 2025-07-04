@@ -172,3 +172,4 @@ cython_debug/
 
 # my ignores
 data_ignored/
+config.py
